@@ -15,3 +15,6 @@ build/
 *.idsig
 __pycache__/
 node_modules/
+
+# 项目记忆（不进仓库）
+.workbuddy/
