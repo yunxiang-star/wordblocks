@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>词块 WordBlocks · 宣传海报</title>
+<style>
+  :root{
+    --ink:#131316;
+    --ink-2:#3A3A3E;
+    --ink-3:#6E6E76;
+    --ink-4:#9A9AA2;
+    --paper:#F6F5F1;
+    --line:rgba(19,19,22,.14);
+    --line-soft:rgba(19,19,22,.08);
+    --red:#C0504A;
+    --blue:#3B82F6;
+    --green:#33916A;
+    --serif:"Noto Serif SC","Source Han Serif SC",serif;
+    --sans:"Noto Sans SC","Microsoft YaHei",sans-serif;
+    --kai:"STKaiti","KaiTi","Noto Serif SC",serif;
+    --mono:"Consolas","SF Mono",monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:#E9E7E2; }
+  .page{
+    position:relative;
+    width:1240px;
+    padding:62px 84px 52px;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  /* 纸张颗粒，很轻，只是让底色不那么「屏幕」 */
+  .grain{
+    position:absolute; inset:0; pointer-events:none; opacity:.05; z-index:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.55'/></svg>");
+  }
+  .page > *{ position:relative; z-index:1; }
+
+  /* ---------- 页眉 ---------- */
+  .top{ display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:14px; border-bottom:1px solid var(--ink); }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand img{ width:40px; height:40px; border-radius:11px; }
+  .brand .n{ font-size:23px; font-weight:700; letter-spacing:.02em; }
+  .brand .en{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-3); margin-top:5px; }
+  .top .meta{ font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:var(--ink-3); text-align:right; line-height:1.7; }
+
+  /* ---------- 主标题 ---------- */
+  .hero{ padding:44px 0 2px; }
+  .hero h1{
+    font-family:var(--serif); font-weight:700;
+    font-size:74px; line-height:1.14; letter-spacing:.005em;
+  }
+  .hero h1 em{ font-style:normal; position:relative; }
+  .hero h1 em::after{
+    content:""; position:absolute; left:-2px; right:-2px; bottom:8px; height:13px;
+    background:rgba(192,80,74,.20); z-index:-1;
+  }
+  .hero .sub{ margin-top:22px; font-size:21px; line-height:1.7; color:var(--ink-2); max-width:930px; }
+  .hero .sub b{ font-weight:600; color:var(--ink); }
+
+  /* ---------- 三屏 ---------- */
+  .shots{ display:flex; justify-content:space-between; align-items:flex-start; margin-top:44px; }
+  .shot{ width:268px; }
+  .shot .ph{ position:relative; }
+  .shot img{
+    display:block; width:268px; height:581px; object-fit:cover;
+    border-radius:30px;
+    box-shadow:0 24px 48px -18px rgba(18,18,24,.30), 0 2px 6px rgba(18,18,24,.08), 0 0 0 1px rgba(18,18,24,.08);
+  }
+  .shot.mid{ margin-top:28px; }
+  .shot .no{ font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--ink-4); margin-bottom:10px; }
+  .shot .cap{ margin-top:15px; font-size:16.5px; line-height:1.6; color:var(--ink-2); }
+  .shot .cap b{ display:block; font-size:19px; font-weight:600; color:var(--ink); margin-bottom:4px; }
+
+  /* 手写标注 */
+  .note{ position:absolute; right:-66px; top:176px; width:170px; font-family:var(--kai); font-size:19px; line-height:1.55; color:var(--red); }
+  .note::before{ content:""; position:absolute; left:-40px; top:20px; width:34px; border-top:1.5px solid var(--red); transform:rotate(-8deg); }
+
+  /* ---------- 章节 ---------- */
+  .sec{ margin-top:52px; }
+  .lab{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+  .lab .k{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-4); }
+  .lab .t{ font-size:15px; font-weight:600; letter-spacing:.14em; color:var(--ink-3); }
+  .lab .rule{ flex:1; height:1px; background:var(--line-soft); }
+
+  /* 适合谁 */
+  .who{ display:flex; gap:34px; padding:28px 34px; background:#FFFFFF; border:1px solid var(--line-soft); border-left:4px solid var(--ink); }
+  .who .q{ font-family:var(--kai); font-size:23px; line-height:1.9; color:var(--ink); }
+  .who .q p + p{ margin-top:12px; }
+  .who .q .dim{ color:var(--ink-3); }
+
+  /* 三个核心 */
+  .core{ display:flex; flex-direction:column; }
+  .row{ display:flex; gap:30px; padding:21px 0; border-top:1px solid var(--line); }
+  .row:last-child{ border-bottom:1px solid var(--line); }
+  .row .idx{ font-family:var(--mono); font-size:14px; color:var(--ink-4); width:44px; padding-top:8px; }
+  .row .body{ flex:1; }
+  .row h3{ font-family:var(--serif); font-size:32px; font-weight:700; letter-spacing:.01em; }
+  .row h3 span{ font-family:var(--sans); font-size:19px; font-weight:400; color:var(--ink-3); margin-left:14px; letter-spacing:0; }
+  .row p{ margin-top:10px; font-size:17.5px; line-height:1.8; color:var(--ink-2); }
+  .row p b{ font-weight:600; color:var(--ink); }
+  .row p code{ font-family:var(--mono); font-size:16px; background:rgba(19,19,22,.06); padding:1px 6px; border-radius:4px; }
+  .hand{ display:block; margin-top:8px; font-family:var(--kai); font-size:18px; color:var(--red); }
+  .sign{ display:block; margin-top:14px; text-align:right; font-family:var(--kai); font-size:19px; color:var(--ink-3); }
+  .accent-1{ color:var(--red); } .accent-2{ color:var(--blue); } .accent-3{ color:var(--green); }
+
+  /* 卖点清单 */
+  .list{ display:flex; gap:56px; }
+  .list .col{ flex:1; min-width:0; }
+  .item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--line-soft); font-size:17px; line-height:1.55; color:var(--ink-2); }
+  .item i{ font-style:normal; color:var(--ink-4); font-family:var(--mono); font-size:14px; padding-top:3px; }
+  .item b{ font-weight:600; color:var(--ink); }
+
+  /* 安装 */
+  .inst{ display:grid; grid-template-columns:1fr 1fr; gap:34px; }
+  .inst .box{ padding:22px 24px; background:#FFFFFF; border:1px solid var(--line-soft); }
+  .inst .box h4{ font-size:16px; letter-spacing:.1em; color:var(--ink-3); font-weight:600; margin-bottom:14px; }
+  .inst .box p{ font-size:17px; line-height:1.75; color:var(--ink-2); }
+  .inst .box code{ font-family:var(--mono); font-size:15.5px; background:rgba(19,19,22,.06); padding:2px 6px; border-radius:4px; }
+  .tip{ margin-top:16px; font-family:var(--kai); font-size:18px; color:var(--ink-3); }
+
+  /* 页脚 */
+  .foot{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:46px; padding-top:18px; border-top:1px solid var(--ink); }
+  .foot .l{ font-family:var(--kai); font-size:21px; color:var(--ink-2); line-height:1.6; }
+  .foot .l span{ color:var(--ink-4); font-size:17px; }
+  .foot .r{ font-family:var(--mono); font-size:13px; color:var(--ink-3); text-align:right; line-height:1.8; letter-spacing:.03em; }
+  .foot .r b{ color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grain"></div>
+
+  <div class="top">
+    <div class="brand">
+      <img src="../src/res/mipmap-xxxhdpi-v4/ic_launcher.png" alt="词块">
+      <div>
+        <div class="n">词块 WordBlocks</div>
+        <div class="en">查 · 记 · 背</div>
+      </div>
+    </div>
+    <div class="meta">
+      v6.2 &nbsp;/&nbsp; Android 7.0+ &nbsp;/&nbsp; 137 KB<br>
+      无广告 &nbsp;/&nbsp; 不注册 &nbsp;/&nbsp; 不联网也能背
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>读文献时查过的词，<br>别让它<em>查完就忘</em>。</h1>
+    <div class="sub">
+      输入就能查全，存下来就排好队，<b>到该忘的那天再还给你</b>。<br>
+      这个 App 只做三件事：查单词、记单词、背单词——而且它们本来就是同一件事。
+    </div>
+  </div>
+
+  <div class="shots">
+    <div class="shot">
+      <div class="no">01</div>
+      <div class="ph"><img src="shots/home.png" alt="首页"></div>
+      <div class="cap"><b>今天背多少，一眼看清</b>待复习 6 · 新词 6 · 已背 12</div>
+    </div>
+
+    <div class="shot mid">
+      <div class="no">02</div>
+      <div class="ph">
+        <img src="shots/add.png" alt="添加单词">
+      </div>
+      <div class="cap"><b>输入单词，自动填全</b>音标 · 中文释义 · 2–3 条双语例句<span class="hand">只打一个英文，剩下的它填。</span></div>
+    </div>
+
+    <div class="shot">
+      <div class="no">03</div>
+      <div class="ph"><img src="shots/learn.png" alt="背诵"></div>
+      <div class="cap"><b>先回想，再对照</b>认识 / 模糊 / 不认识，三档自评</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="lab"><span class="k">00</span><span class="t">这个适合谁</span><span class="rule"></span></div>
+    <div class="who">
+      <div class="q">
+        <p>如果你跟我一样，平时不是抱着单词书干背，而是读文章的时候碰上不认识的词，查完顺手记进自己的本子，过几天再翻出来反复看——那这个大概适合你。</p>
+        <p class="dim">我是为了读英文文献才做的。查、记、背本来要开三个 App，来回复制粘贴；现在它是同一件事，做完就完了。</p>
+        <span class="sign">—— 一个要读英文文献的人</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="lab"><span class="k">01—03</span><span class="t">它具体做了什么</span><span class="rule"></span></div>
+    <div class="core">
+      <div class="row">
+        <div class="idx">01</div>
+        <div class="body">
+          <h3>查<span>一个输入框就够了</span></h3>
+          <p>输入英文单词或词组，<b>音标、中文释义、两三条例句自动填进表单</b>，填完直接改，不用在词典和笔记之间来回切换。内置 <b>231 条线代 / 微积分英文术语</b>，离线优先命中，数学语境下的释义比通用词典准；没收录的再走在线词典，查不到还能手填。</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="idx">02</div>
+        <div class="body">
+          <h3>记<span>存进来就是能用的本子</span></h3>
+          <p>按区块收纳（雅思生词本、线代 &amp; 微积分，或自己新建、自己配色）。<b>一行一个批量导入</b>，一篇文献的生词可以整段贴进去，一次查完一起入库。要用纸的时候随时导出 PDF：<b>背诵表 / 对照表 / 卡片模式（裁开折叠）/ 自测卷（只印英文留空默写）</b>四种版式，也能直接连打印机。</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="idx">03</div>
+        <div class="body">
+          <h3>背<span>按记忆曲线还给你</span></h3>
+          <p><b>9 档间隔，从 10 分钟到 120 天</b>：认识了往后推一档，模糊就间隔砍半，不认识回第一档重来。复习和学新词并行，每次 10 / 20 / 30 / 50 或自己填（1–500）；背完当天的量还能继续加练，不会出现「今天没得背了」。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="lab"><span class="k">04</span><span class="t">还有这些</span><span class="rule"></span></div>
+    <div class="list">
+      <div class="col">
+        <div class="item"><i>·</i><span><b>三档自评</b>：认识 / 模糊 / 不认识，不逼你在对错里二选一</span></div>
+        <div class="item"><i>·</i><span><b>巩固测</b>：中→英四选一，答错的词回队尾再考一遍</span></div>
+        <div class="item"><i>·</i><span><b>新词占比可调</b>：0 / 25% / 50% / 75%，只想复习就不学新的</span></div>
+        <div class="item"><i>·</i><span><b>连续打卡</b>与今日进度条，背了多少不用自己算</span></div>
+        <div class="item"><i>·</i><span><b>每个区块单独统计</b>：待复习 / 可学新词 / 可加练</span></div>
+        <div class="item"><i>·</i><span><b>长按区块卡片</b>就能改名、换色、批量删词</span></div>
+      </div>
+      <div class="col">
+        <div class="item"><i>·</i><span><b>标重点</b>：容易混的词加颗星，复习时先看它</span></div>
+        <div class="item"><i>·</i><span><b>搜索</b>：英文或中文释义都能搜，还能按未掌握 / 已掌握筛</span></div>
+        <div class="item"><i>·</i><span><b>数据只在手机本地</b>：不登录、不上传、没有广告</span></div>
+        <div class="item"><i>·</i><span><b>JSON 备份</b>：导出一份文件，换手机原样恢复</span></div>
+        <div class="item"><i>·</i><span><b>覆盖安装不丢词</b>，旧版本数据自动迁移归档</span></div>
+        <div class="item"><i>·</i><span><b>已存的词完全离线可背</b>，只有查新词才联网</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="lab"><span class="k">05</span><span class="t">怎么装</span><span class="rule"></span></div>
+    <div class="inst">
+      <div class="box">
+        <h4>ANDROID</h4>
+        <p>装 <code>词块WordBlocks-6.2.apk</code>，允许「安装未知来源」即可。包很小，137 KB，不占地方。</p>
+      </div>
+      <div class="box">
+        <h4>iOS</h4>
+        <p>有 <code>词块WordBlocks-4.0.ipa</code>，需要 Sideloadly 或 AltStore 侧载，免费 Apple ID 签名 7 天，掉签重装一次。</p>
+      </div>
+    </div>
+    <div class="tip">说句实话：在线词典走的是公开接口，偶尔会抽风，查不到就手填一下，不影响后面所有功能。<br>
+      数据都存在手机本地，卸载重装之前，记得先在「设置 → 导出全部备份」里存一份 JSON。</div>
+  </div>
+
+  <div class="foot">
+    <div class="l">用 vibe coding 写的，界面来回改了 12 个版本。<br><span>先自己用得舒服，才拿出来分享。</span></div>
+    <div class="r"><b>github.com/yunxiang-star/wordblocks</b><br>源码 · 安装包 · 开发日志<br>2026.10</div>
+  </div>
+</div>
+</body>
+</html>

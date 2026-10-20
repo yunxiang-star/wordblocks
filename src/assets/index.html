@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>词块</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"></div>
+
+<div class="app">
+  <header class="topbar" id="topbar">
+    <button class="icon-btn" id="btnBack" aria-label="返回">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="title-wrap">
+      <h1 id="tbTitle">词块</h1>
+      <div class="tb-sub" id="tbSub"></div>
+    </div>
+    <button class="icon-btn" id="btnMore" aria-label="更多">
+      <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg>
+    </button>
+  </header>
+
+  <main class="view" id="view"></main>
+</div>
+
+<button class="fab" id="fab"><span>＋</span></button>
+
+<div class="sheet-mask" id="sheetMask"></div>
+<div class="sheet-root" id="sheetRoot"></div>
+<div class="toast" id="toast"></div>
+<div class="loading" id="loading"><div class="spinner"></div><div id="loadingText">查询中…</div></div>
+
+<script src="glossary.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

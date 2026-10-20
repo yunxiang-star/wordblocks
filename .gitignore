@@ -1,0 +1,17 @@
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# 临时文件
+.tmp_*
+*.tmp
+*.log
+
+# 构建中间产物
+build/
+*.idsig
+__pycache__/
+node_modules/
